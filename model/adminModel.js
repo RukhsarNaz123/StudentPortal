@@ -9,6 +9,10 @@ const adminSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  userId: {
+    type: mongoose.Schema.ObjectId,
+    required: [true, "user id is required"],
+  },
   role: {
     type: String,
     default: "admin",

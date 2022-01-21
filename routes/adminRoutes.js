@@ -3,9 +3,10 @@ const {
   updateStudentInfo,
   // updateTeacherInfo,
 } = require("../controllers/adminController");
+const { getUserDetails } = require("../controllers/authController");
 const router = express.Router();
 
-router.post("/:studentId", updateStudentInfo);
+router.post("/updateStudent/:studentId", updateStudentInfo);
 // router.post(":/teacherId", updateTeacherInfo);
-
+router.get("/:adminId", getUserDetails);
 module.exports = router;
