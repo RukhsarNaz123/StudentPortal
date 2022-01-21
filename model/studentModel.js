@@ -18,7 +18,7 @@ const studentSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    default: "artist",
+    default: "student",
   },
   rollNo: {
     type: String,

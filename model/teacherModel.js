@@ -18,11 +18,7 @@ const teacherSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    default: "artist",
-  },
-  employeeNo: {
-    type: String,
-    unique: true,
+    default: "teacher",
   },
   department: String,
   qualifications: {

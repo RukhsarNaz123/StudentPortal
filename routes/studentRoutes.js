@@ -1,9 +1,10 @@
 const express = require("express");
 const {
   getStudentDetails,
-  updateInfo,
+  fetchAllStudents,
 } = require("../controllers/studentController");
 const router = express.Router();
 
-router.route("/:studentId").post(updateInfo).get(getStudentDetails);
+router.get("/", fetchAllStudents);
+router.route("/:studentId").get(getStudentDetails);
 module.exports = router;

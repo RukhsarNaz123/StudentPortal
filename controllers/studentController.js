@@ -1,5 +1,4 @@
 const Student = require("../model/studentModel");
-const mongoose = require("mongoose");
 exports.getStudentDetails = (req, res) => {
   try {
     console.log("student detail api");
@@ -27,20 +26,12 @@ exports.fetchStudent = async (studentId) => {
   }
 };
 
-exports.updateInfo = async (req, res) => {
+exports.fetchAllStudents = async (req, res) => {
   try {
-    var { studentId } = req.params;
-    var id = mongoose.Types.ObjectId(studentId);
-    const updatedInfo = await Student.findOneAndUpdate(
-      { userId: id },
-      req.body,
-      { new: true }
-    );
+    const students = await Student.find();
     res.status(200).json({
       status: "success",
-      data: {
-        user: updatedInfo,
-      },
+      data: { students },
     });
   } catch (error) {
     res.status(400).json({ error: error.message });

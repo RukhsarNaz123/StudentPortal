@@ -3,6 +3,8 @@ const express = require("express");
 const studentRoutes = require("./routes/studentRoutes");
 const authRoutes = require("./routes/authRoutes");
 const teacherRoutes = require("./routes/teacherRoutes");
+const adminRoutes = require("./routes/adminRoutes");
+const courseRoutes = require("./routes/courseRoutes");
 const app = express();
 const cors = require("cors");
 //middleware
@@ -17,7 +19,8 @@ require("mongoose")
 app.use("/api/v1/student", studentRoutes);
 app.use("/api/v1/teacher", teacherRoutes);
 app.use("/api/v1/auth", authRoutes);
-
+app.use("/api/v1/courses", courseRoutes);
+app.use("/api/v1/admin", adminRoutes);
 app.listen(process.env.PORT, () => {
   console.log(`server started at PORT ${process.env.PORT}`);
 });

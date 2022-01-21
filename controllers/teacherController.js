@@ -15,11 +15,16 @@ exports.fetchTeacher = async (teacherId) => {
     return new Error(error.message);
   }
 };
-
-// exports.addTeacherDetails = (req, res) => {
-//   try {
-//     console.log(req.body);
-//   } catch (error) {
-//     res.status(400).json({ error: error.message });
-//   }
-// };
+exports.fetchAllTeachers = async (req, res) => {
+  try {
+    var teachers = await Teacher.find();
+    res.status(200).json({
+      status: "success",
+      data: {
+        teachers,
+      },
+    });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};

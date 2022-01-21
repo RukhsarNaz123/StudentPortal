@@ -1,4 +1,5 @@
 const User = require("../model/userModel");
+const { fetchAdmin } = require("./adminController");
 const { addStudent, fetchStudent } = require("./studentController");
 const { fetchTeacher, addTeacher } = require("./teacherController");
 
@@ -37,7 +38,7 @@ exports.login = async (req, res) => {
     // fetch user whose email is given
     var user = await User.findOne({ email }).select("+password"); //zabardasti password lekr aane k lye
 
-    if (!user) {
+    if (!user && !password === user.password) {
       res.status(401).json({
         status: "error",
         error: "Invalid email or password",
@@ -48,6 +49,8 @@ exports.login = async (req, res) => {
     var userProfile = null;
     if (user.role === "student") userProfile = await fetchStudent(user._id);
     if (user.role === "teacher") userProfile = await fetchTeacher(user._id);
+    if (user.role === "admin") userProfile = await fetchAdmin(user._id);
+
     res.status(200).json({ status: "success", data: { userProfile } });
   } catch (error) {
     res.status(404).json({
