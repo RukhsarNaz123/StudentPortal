@@ -13,7 +13,7 @@ const courseSchema = new mongoose.Schema({
     required: true,
   },
   courseTeachers: {
-    type: Array,
+    type: String,
     required: true,
   },
   creditHours: {

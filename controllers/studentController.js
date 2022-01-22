@@ -1,3 +1,4 @@
+const Course = require("../model/courseModel");
 const Student = require("../model/studentModel");
 
 exports.addStudent = async (studentProfile) => {
@@ -24,6 +25,26 @@ exports.fetchAllStudents = async (req, res) => {
     res.status(200).json({
       status: "success",
       data: { students },
+    });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+exports.updateStudent = async (req, res) => {
+  try {
+    console.log(req.body);
+    const { rollNo, studentId, semester } = req.body;
+
+    const courses = await Course.find({ semester: semester });
+    const updatedStudent = await Student.findOneAndUpdate(
+      { userId: studentId },
+      { rollNo, semester, courses },
+      { new: true }
+    );
+    res.status(200).json({
+      status: "success",
+      data: { student: updatedStudent },
     });
   } catch (error) {
     res.status(400).json({ error: error.message });

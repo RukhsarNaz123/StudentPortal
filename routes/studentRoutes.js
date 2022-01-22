@@ -5,4 +5,5 @@ const router = express.Router();
 
 router.get("/", fetchAllStudents);
 router.get("/:studentId", getUserDetails);
+
 module.exports = router;

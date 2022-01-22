@@ -3,19 +3,19 @@ const Teacher = require("../model/teacherModel");
 exports.addCourse = async (req, res) => {
   try {
     //extract teacherId from req.body
-    var { teacherIds, ...restData } = req.body;
-    const modifiedData = { courseTeachers: teacherIds, ...restData };
-    for (var teacherId of teacherIds) {
-      await Teacher.findOneAndUpdate(
-        { userId: teacherId },
-        { $push: { teachingCourses: restData } }
-      );
-    }
-    // var enrolledCourse = await Course.create(modifiedData);
+    console.log(req.body);
+    var { teacherId, ...restData } = req.body;
+    // console.log(restData);
+    const modifiedData = { courseTeachers: teacherId, ...restData };
+    await Teacher.findOneAndUpdate(
+      { userId: teacherId },
+      { $push: { teachingCourses: restData } }
+    );
+    var enrolledCourse = await Course.create(modifiedData);
     res.status(200).json({
       status: "success",
       data: {
-        // courses: enrolledCourse,
+        courses: enrolledCourse,
       },
     });
   } catch (error) {

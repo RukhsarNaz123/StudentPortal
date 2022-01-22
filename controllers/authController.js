@@ -14,6 +14,7 @@ exports.signup = async (req, res) => {
       username: user.username,
       email: user.email,
       userId: user._id,
+      fullName: user.firstName + " " + user.lastName,
     };
 
     var userProfile = null;
@@ -65,7 +66,6 @@ exports.login = async (req, res) => {
 };
 exports.getUserDetails = async (req, res) => {
   try {
-    console.log(req.params);
     if (req.params.studentId) {
       const student = await Student.findOne({ userId: req.params.studentId });
       res.status(200).json({ status: "success", data: { user: student } });
