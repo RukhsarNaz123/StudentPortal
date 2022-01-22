@@ -1,4 +1,5 @@
 const Course = require("../model/courseModel");
+const Student = require("../model/studentModel");
 const Teacher = require("../model/teacherModel");
 exports.addCourse = async (req, res) => {
   try {

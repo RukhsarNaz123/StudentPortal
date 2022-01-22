@@ -18,6 +18,19 @@ exports.fetchStudent = async (studentId) => {
     return new Error(error.message);
   }
 };
+exports.fetchEnrolledStudents = async (req, res) => {
+  try {
+    const students = await Student.find({ semester: req.body.semester });
+    res.status(200).json({
+      status: "success",
+      data: {
+        students,
+      },
+    });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
 exports.fetchAllStudents = async (req, res) => {
   try {
@@ -34,12 +47,12 @@ exports.fetchAllStudents = async (req, res) => {
 exports.updateStudent = async (req, res) => {
   try {
     console.log(req.body);
-    const { rollNo, studentId, semester } = req.body;
+    const { rollNo, studentId, section, semester } = req.body;
 
     const courses = await Course.find({ semester: semester });
     const updatedStudent = await Student.findOneAndUpdate(
       { userId: studentId },
-      { rollNo, semester, courses },
+      { rollNo, semester, courses, section },
       { new: true }
     );
     res.status(200).json({
